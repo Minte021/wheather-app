@@ -1,24 +1,182 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wheather App</title>
-</head>
-<body>
-    <search>
-  <form action="/search" method="get">
-    <label for="wheather-search">Search the images:</label>
-    <input type="search" id="wheather-search" name="q" placeholder="Search..." aria-label="Search site content">
-    <button type="submit">Search</button>
-  </form>
-</search>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="theme-color"
+      content="#f5f7fb"
+    />
+    <meta
+      name="description"
+      content="A clear, simple look at the weather where you are."
+    />
+    <title>Weatherly — Your daily forecast</title>
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="/" aria-label="Weatherly home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none">
+              <circle cx="16" cy="13" r="6" fill="currentColor" />
+              <path
+                d="M7 22.5a5 5 0 0 1 4.8-5 6.5 6.5 0 0 1 12.3 2.2A4.2 4.2 0 0 1 23.8 28H11a5.5 5.5 0 0 1-4-5.5Z"
+                fill="currentColor"
+              />
+            </svg>
+          </span>
+          <span>weatherly</span>
+        </a>
+        <span class="topbar-note">A little more sunshine in your day</span>
+      </header>
 
-<div id="container">
-<h2 id="city"></h2>
+      <section class="welcome-row" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow">YOUR PERSONAL WEATHER</p>
+          <h1 id="page-title">Weather, at a glance.</h1>
+          <p class="welcome-copy">A fresh look at what’s happening outside.</p>
+        </div>
 
-</div>
+        <form class="search-form" role="search">
+          <label class="sr-only" for="weather-search">Search for a city</label>
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="10.8" cy="10.8" r="6.8" stroke="currentColor" stroke-width="1.8" />
+            <path d="m16 16 4.2 4.2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+          </svg>
+          <input
+            type="search"
+            id="weather-search"
+            name="q"
+            placeholder="Search a city"
+            autocomplete="off"
+            required
+          />
+          <button type="submit">Search</button>
+        </form>
+      </section>
 
-<script src="index.js" type="module"></script>
-</body>
+      <p class="status-message" id="status-message" role="status" aria-live="polite"></p>
+
+      <section class="dashboard-grid" aria-label="Current weather">
+        <article class="weather-card" id="weather-card" aria-live="polite">
+          <div class="weather-card-glow" aria-hidden="true"></div>
+          <div class="weather-card-content">
+            <div class="location-line">
+              <span class="location-pin" aria-hidden="true">
+                <svg viewBox="0 0 20 20" fill="none">
+                  <path d="M16 8.3c0 4.3-6 9.2-6 9.2S4 12.6 4 8.3a6 6 0 1 1 12 0Z" stroke="currentColor" stroke-width="1.5" />
+                  <circle cx="10" cy="8" r="2" stroke="currentColor" stroke-width="1.5" />
+                </svg>
+              </span>
+              <div>
+                <p class="location-label">CURRENT WEATHER</p>
+                <h2 id="city-name">Find your forecast</h2>
+              </div>
+            </div>
+
+            <div class="current-weather">
+              <div class="temperature-wrap">
+                <p class="date-label" id="local-date">Search for a city to get started</p>
+                <p class="temperature" id="temperature">--<span>°</span></p>
+                <p class="condition" id="condition">Your weather will appear here</p>
+              </div>
+              <div class="weather-art" aria-hidden="true">
+                <div class="sun-orbit"></div>
+                <img id="weather-icon" alt="" />
+              </div>
+            </div>
+
+            <div class="hero-divider"></div>
+            <div class="hero-summary">
+              <span>Feels like <strong id="feels-like">--°</strong></span>
+              <span class="summary-dot" aria-hidden="true"></span>
+              <span>H: <strong id="high-temp">--°</strong></span>
+              <span>L: <strong id="low-temp">--°</strong></span>
+            </div>
+          </div>
+        </article>
+
+        <section class="highlights" aria-labelledby="highlights-title">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">THE DETAILS</p>
+              <h2 id="highlights-title">Today’s highlights</h2>
+            </div>
+            <span class="live-indicator"><span></span> LIVE</span>
+          </div>
+
+          <div class="metrics-grid">
+            <article class="metric-card">
+              <div class="metric-top">
+                <span class="metric-icon feels-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M14 14.8V5a3 3 0 0 0-6 0v9.8a5 5 0 1 0 6 0Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M11 12v6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+                </span>
+                <span class="metric-label">FEELS LIKE</span>
+              </div>
+              <p class="metric-value" id="metric-feels-like">--<span>°</span></p>
+              <p class="metric-caption">What it feels like outside</p>
+            </article>
+
+            <article class="metric-card">
+              <div class="metric-top">
+                <span class="metric-icon humidity-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M12 3.5s6 6.4 6 11a6 6 0 1 1-12 0c0-4.6 6-11 6-11Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9 15.5a3 3 0 0 0 3 3" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+                </span>
+                <span class="metric-label">HUMIDITY</span>
+              </div>
+              <p class="metric-value" id="humidity">--<span>%</span></p>
+              <p class="metric-caption">A little moisture in the air</p>
+            </article>
+
+            <article class="metric-card">
+              <div class="metric-top">
+                <span class="metric-icon wind-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M3 8h11a2.5 2.5 0 1 0-2.5-2.5M3 12h16a2.5 2.5 0 1 1-2.5 2.5M3 16h8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+                </span>
+                <span class="metric-label">WIND</span>
+              </div>
+              <p class="metric-value" id="wind-speed">--<span> km/h</span></p>
+              <p class="metric-caption" id="wind-direction">A gentle breeze</p>
+            </article>
+
+            <article class="metric-card">
+              <div class="metric-top">
+                <span class="metric-icon visibility-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M2.8 12s3.3-6 9.2-6 9.2 6 9.2 6-3.3 6-9.2 6-9.2-6-9.2-6Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="12" cy="12" r="2.5" stroke="currentColor" stroke-width="1.7"/></svg>
+                </span>
+                <span class="metric-label">VISIBILITY</span>
+              </div>
+              <p class="metric-value" id="visibility">--<span> km</span></p>
+              <p class="metric-caption">How far you can see</p>
+            </article>
+          </div>
+
+          <div class="sun-times">
+            <div class="sun-time-item">
+              <span class="sun-time-icon sunrise-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M3 17h18M5 21h14M7 13a5 5 0 0 1 10 0M12 3v2M4.9 6l1.4 1.4m11.8-1.4-1.4 1.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+              </span>
+              <span class="sun-time-label">SUNRISE</span>
+              <strong id="sunrise">--:--</strong>
+            </div>
+            <span class="sun-times-divider" aria-hidden="true"></span>
+            <div class="sun-time-item">
+              <span class="sun-time-icon sunset-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M3 17h18M5 21h14M7 13a5 5 0 0 1 10 0M12 3v2M4.9 6l1.4 1.4m11.8-1.4-1.4 1.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+              </span>
+              <span class="sun-time-label">SUNSET</span>
+              <strong id="sunset">--:--</strong>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <footer class="page-footer">
+        <span class="footer-mark" aria-hidden="true">✳</span>
+        <p>Take a deep breath. The forecast is looking up.</p>
+        <span class="footer-source">WEATHER DATA BY OPENWEATHER</span>
+      </footer>
+    </main>
+  </body>
 </html>
